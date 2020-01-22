@@ -2,7 +2,8 @@
 #include <string>
 #include <netcdfcpp.h>
 
-#define cimg_debug 12
+//DEBUG LEVEL
+//#define cimg_debug 12
 
 #include "struct_parameter_NetCDF.h"
 
@@ -14,7 +15,8 @@ int main()
   ///file name
   string fi="parameters.nc";//=cimg_option("-p","parameters.nc","comment");
   ///parameters
-  int k,m;float alpha;
+  int k,m;
+  double alpha;
 
   ///parameter class
   CParameterNetCDF fp;
