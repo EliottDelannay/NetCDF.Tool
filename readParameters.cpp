@@ -11,37 +11,43 @@ int main()
   ///file name
   string fi="parameters.nc";//=cimg_option("-p","parameters.nc","comment");
   ///parameters
-  float z_o; string z_o_name="z_init";
-  std::vector<float> z_position;string z_position_name="z_position";
+  int k,m;float alpha;
 
   ///parameter class
   CParameterNetCDF fp;
   //open file
   int error=fp.loadFile((char *)fi.c_str());
-  if(error){cerr<<"loadFile return "<< error <<endl;return error;}
-  //load single variable
-  error=fp.loadVar(z_o,&z_o_name);
-  if(error){cerr<<"loadVar return "<< error <<endl;return error;}
-  cout<<z_o_name<<"="<<z_o<<endl;  
-  //load vector variable
-  error=fp.loadVar(z_position,&z_position_name);
-  if(error){cerr<<"loadVar return "<< error <<endl;return error;}
-  cout<<z_position_name<<"=";
-  for(int i=0;i<z_position.size();i++) cout<<z_position[i]<<", ";cout<<endl;
+  if(error){std::cerr<<"loadFile return "<< error <<std::endl;return error;}
 
-
-  float process; string process_name="acquisition";
+  float process; string process_name="trapezoid";
   //load process variable
   error=fp.loadVar(process,&process_name);
   if(error){cerr<<"loadVar return "<< error <<endl;return error;}
-cout<<process_name<<"="<<process<<endl;  
-  std::vector<int> channel_index;string channel_index_name="channels";
-  if (error = fp.loadAttribute(channel_index_name,channel_index)!=0){
-    cerr<< "Error while loading "<<process_name<<":"<<channel_index_name<<" attribute"<<endl;
+std::cout<<process_name<<"="<<process<<std::endl;
+  ///k
+  string attribute_name="k";
+  if (error = fp.loadAttribute(attribute_name,k)!=0){
+    std::cerr<< "Error while loading "<<process_name<<":"<<attribute_name<<" attribute"<<std::endl;
     return error;
   }
-    cout<<channel_index_name<<"=";
-  for(int i=0;i<channel_index.size();i++) cout<<channel_index[i]<<", ";cout<<endl;
+std::cout<<attribute_name<<"="<<k<<std::endl;
+
+  ///m
+  attribute_name="m";
+  if (error = fp.loadAttribute(attribute_name,m)!=0){
+    std::cerr<< "Error while loading "<<process_name<<":"<<attribute_name<<" attribute"<<std::endl;
+    return error;
+  }
+std::cout<<attribute_name<<"="<<m<<std::endl;
+
+  ///alpha
+  attribute_name="alpha";
+  if (error = fp.loadAttribute(attribute_name,alpha)!=0){
+    std::cerr<< "Error while loading "<<process_name<<":"<<attribute_name<<" attribute"<<std::endl;
+    return error;
+  }
+alpha/=1000;
+std::cout<<attribute_name<<"="<<alpha<<std::endl;
 
   return 0;
 }

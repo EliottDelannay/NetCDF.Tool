@@ -1,40 +1,38 @@
-netcdf HPIVlml.parameters {//written in NetCDF CDL language
+netcdf RockAMali.parameters {//written in NetCDF CDL language
+  :institution = "GANIL";
+  :title = "RockAMali parameters";
+  :comment = "source of parameters for RockAMali processing program";
+  :history = "";
+  :version = "v0.0.0";
+
 dimensions:
 //  dim_string=64;
-  dim_plane_number=unlimited;
+//  dim_=unlimited;
 
 //variable declaration and attributes
 variables:
-//acquisition
-  int acquisition;
-    acquisition:channels= 0, 1;
-    acquisition:channel_name= "pressure", "hot_wire";
+//trapezoid filter
+  int trapezoid;
+    trapezoid:long_name="trapezoid filter (activated if >0)";
+    trapezoid:k_long_name= "increase size";
+    trapezoid:k= 200;
+    trapezoid:k_units= "pixel";
+    trapezoid:m_long_name= "plateau size";
+    trapezoid:m= 50;
+    trapezoid:m_units= "pixel";
+    trapezoid:alpha_long_name= "";
+    trapezoid:alpha= 998;
+    trapezoid:alpha_units= "";
 
-//reconstructed plane parameters
-  float z_init;
-  float z_step;
-  int   plane_number;
-  //or several user defined positions
-  float z_position(dim_plane_number);
-//convolution reconstruction parameters
-  float laser_wave_length;
-  float z_reference;
-  float pixel_size;
+//energy
+  int energy;
+    energy:long_name="energy measurement (activated if >0)";
+    energy:n= 123;
 
 //data value
 data:
-//acquisition
-  acquisition=1;
-
-//reconstructed plane parameters
-  z_init=0.1;
-  z_step=0.2;
-  plane_number=4;
-  //or
-  z_position=0.1, 0.2, 0.25, 0.3, 0.4;
-//convolution reconstruction parameters
-  laser_wave_length=532e-9;
-  z_reference=1.1;
-  pixel_size=6.7e-6;
+//trapezoid filter
+  trapezoid=1;
+  energy=0;
 }
 
