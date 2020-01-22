@@ -21,7 +21,7 @@ variables:
     trapezoid:m= 50;
     trapezoid:m_units= "pixel";
     trapezoid:alpha_long_name= "";
-    trapezoid:alpha= 998;
+    trapezoid:alpha= 0.998f;
     trapezoid:alpha_units= "";
 
 //energy

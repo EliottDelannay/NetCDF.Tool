@@ -2,9 +2,12 @@
 #include <string>
 #include <netcdfcpp.h>
 
+#define cimg_debug 12
+
 #include "struct_parameter_NetCDF.h"
 
 using namespace std;
+
 
 int main()
 {
@@ -46,7 +49,6 @@ std::cout<<attribute_name<<"="<<m<<std::endl;
     std::cerr<< "Error while loading "<<process_name<<":"<<attribute_name<<" attribute"<<std::endl;
     return error;
   }
-alpha/=1000;
 std::cout<<attribute_name<<"="<<alpha<<std::endl;
 
   return 0;
