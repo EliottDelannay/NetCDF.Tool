@@ -1,5 +1,11 @@
 #include <iostream>
 #include <string>
+
+//ArgP
+#include <error.h>
+#include <argp.h>
+
+//NetCDF
 #include <netcdfcpp.h>
 
 //DEBUG LEVEL
@@ -7,13 +13,112 @@
 
 #include "struct_parameter_NetCDF.h"
 
+#define VERSION "v0.4.3"
+
 using namespace std;
 
+//Program option/documentation
+//{argp
+//! [argp] version of program
+const char *argp_program_version=VERSION;
+//! [argp] author of program
+const char *argp_program_bug_address="sebastien.coudert@ganil.fr";
+//! [argp] documentation of program
+static char doc[]=
+   "read parameters from .NC file (should be compiled from .CDL using ncgen)\
+\n  readParameters."VERSION"\
+\n\
+examples:\n\
+  readParameters --help\n\
+  readParameters -v\n\
+  ncgen parameters.cdl -o parameters.nc && readParameters -v -p parameters.nc\n\
+  readParameters -V\n\
+  readParameters --usage";
 
-int main()
+//! [argp] A description of the arguments
+static char args_doc[] = "";
+
+//! [argp] The options and its description
+static struct argp_option options[]=
 {
+  {"verbose",   'v', 0, 0,               "Produce verbose output" },
+  {"parameters",'p', "parameters.nc", 0, "input file containing parameters, e.g. k,m,alpha." },
+//default options
+  { 0 }
+};//options (CLI)
+
+//! [argp] Used by main to communicate with parse_option
+struct arguments
+{
+  //! verbose mode (boolean)
+  int verbose;
+  //! integer value
+  int integer;
+  //! string value
+  char* string;
+};//arguments (CLI)
+
+//! [argp] Parse a single option
+static error_t
+parse_option(int key, char *arg, struct argp_state *state)
+{
+  //Get the input argument from argp_parse
+  struct arguments *arguments=(struct arguments *)(state->input);
+  switch (key)
+  {
+    case 'v':
+      arguments->verbose=1;
+      break;
+    case 'p':
+      arguments->string=arg;
+      break;
+    default:
+      return ARGP_ERR_UNKNOWN;
+  }//switch
+  return 0;
+}//parse_option
+
+
+//! [argp] print argument values
+void print_args(struct arguments *p_arguments)
+{
+  printf (".verbose=%s\n.integer=%d\n.string=%s\n"
+  , p_arguments->verbose?"yes":"no"
+  , p_arguments->string
+  );
+}//print_args
+
+//! [argp] setup argp parser
+static struct argp argp = { options, parse_option, args_doc, doc };
+
+//}argp
+
+int main(int argc, char **argv)
+{
+  //CLI arguments
+  struct arguments arguments;
+  arguments.verbose=0;
+  arguments.string="parameters.nc";
+
+//! - print default option values (static)
+  if(0)//0 or 1
+  {
+    printf("default values:\n");
+    print_args(&arguments);
+  }//print default option values
+
+//! - Parse arguments (see parse_option) and eventually show usage, help or version and exit for these lasts
+  argp_parse(&argp, argc, argv, 0, 0, &arguments);
+
+  ///print option values
+  if(arguments.verbose)
+  {
+    printf("command line option values:\n");
+    print_args(&arguments);
+  }//print default option values
+
   ///file name
-  string fi="parameters.nc";//=cimg_option("-p","parameters.nc","comment");
+  string fi=arguments.string;
   ///parameters
   int k,m;
   double alpha;
