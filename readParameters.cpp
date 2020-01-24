@@ -13,20 +13,24 @@
 
 #include "struct_parameter_NetCDF.h"
 
-#define VERSION "v0.4.3"
+#define VERSION "v0.4.4"
 
 using namespace std;
 
 //Program option/documentation
 //{argp
 //! [argp] version of program
-const char *argp_program_version=VERSION;
+const char *argp_program_version=VERSION"\
+\n  CParameterNetCDF."CDL_PARAMETER_VERSION"\
+\n  NcTypeInfo."NETCDF_TYPE_INFO_VERSION;
 //! [argp] author of program
 const char *argp_program_bug_address="sebastien.coudert@ganil.fr";
 //! [argp] documentation of program
 static char doc[]=
    "read parameters from .NC file (should be compiled from .CDL using ncgen)\
 \n  readParameters."VERSION"\
+\n  CParameterNetCDF."CDL_PARAMETER_VERSION"\
+\n  NcTypeInfo."NETCDF_TYPE_INFO_VERSION"\
 \n\
 examples:\n\
   readParameters --help\n\

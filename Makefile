@@ -8,9 +8,6 @@ read: readParameters.cpp
 
 version:
 	./readParameters --version > VERSIONS
-	grep CDL_PARAMETER_VERSION     struct_parameter_NetCDF.h >> VERSIONS
-	grep NETCDF_TYPE_INFO_VERSION  NetCDFinfo.h              >> VERSIONS
-	sed -i 's/#define //' VERSIONS
 	cat VERSIONS
 
 ncgen: parameters.cdl
