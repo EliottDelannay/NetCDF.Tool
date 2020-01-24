@@ -3,6 +3,8 @@
 
 #include <netcdfcpp.h>
 
+#define NETCDF_TYPE_INFO_VERSION "v0.1.2"
+
 #define NC_ERROR   -2
 #define CODE_ERROR -3
 #define DIM_ERROR  -4

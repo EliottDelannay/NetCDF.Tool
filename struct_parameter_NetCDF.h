@@ -7,6 +7,8 @@
 #include <vector>
 #include <netcdfcpp.h>
 
+#define CDL_PARAMETER_VERSION "v0.5.0"
+
 #include "../NetCDF.Tool/NetCDFinfo.h"
 
 //! 
