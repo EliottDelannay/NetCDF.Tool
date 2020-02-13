@@ -1,5 +1,5 @@
-LIB_NETCDF= -I../NetCDF/include/ -lnetcdf_c++ -L../NetCDF/lib/ -lnetcdf 
-CPP= g++ -O0 -Wall -W 
+LIB_NETCDF= -I/usr/include/ -lnetcdf_c++ -L/usr/lib/aarch64-linux-gnu/ -lnetcdf
+CPP= g++ -O0 -Wall -W
 
 all: read version
 
