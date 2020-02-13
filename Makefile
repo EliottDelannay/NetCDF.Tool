@@ -1,4 +1,8 @@
+#NetCDF library
+##ARM64 (RockPro64)
 LIB_NETCDF= -I/usr/include/ -lnetcdf_c++ -L/usr/lib/aarch64-linux-gnu/ -lnetcdf
+##AMD64 (gan*)
+LIB_NETCDF= -I../NetCDF/include/ -lnetcdf_c++ -L../NetCDF/lib/ -lnetcdf
 CPP= g++ -O0 -Wall -W
 
 all: read version
